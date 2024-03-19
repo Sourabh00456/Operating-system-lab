@@ -38,7 +38,11 @@ int main(){
    for(Process&process:processes){
        avgwaitingTime+=process.WaitingTime;
        avgturnaroundTime+=process.turnaroundTime;
-       cout<<
+      
    }
+   avgwaitingTime/=numProcesses;
+   avgturnaroundTime/=numProcesses;
+   cout<<avgwaitingTime<<"avgwaitngTime"<<endl;
+     cout<<avgturnaroundTime<<"avgturnaroundTime"<<endl;
 }
 
