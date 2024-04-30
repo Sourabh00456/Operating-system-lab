@@ -44,3 +44,36 @@ int main() {
 
    return 0;
 }
+class Consumer implements Runnable {
+    private int i = 0;
+    int max = 10;
+    ArrayList<Integer> buffer;
+
+    public Consumer(ArrayList<Integer> buffer) {
+        this.buffer = buffer;
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                i--;
+                consume(i);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Exception");
+        }
+    }
+
+    public void consume(int i) throws InterruptedException {
+        synchronized ( buffer) {
+            while(buffer.size()==0) {
+                System.out.println("Buffer is empty");
+                buffer.wait();
+            }
+            buffer.remove(0);
+            synchronized (buffer) {
+                buffer.notify();
+                
+            }
+        }
+    }
